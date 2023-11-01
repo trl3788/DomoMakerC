@@ -38,7 +38,7 @@ const signup = async (req, res) => {
         return res.status(400).json({ error: 'All fields are required!' });
     }
 
-    if(pass != pass2){
+    if(pass !== pass2){
         return res.status(400).json({ error: 'Passwords do not match' });
     }
 
