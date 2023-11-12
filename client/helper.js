@@ -27,6 +27,31 @@ const sendPost = async (url, data, handler) => {
         handler(result);
     }
 };
+const sendDelete = async (url, data, handler) => {
+    const newURL = `${url}?_id=${data}`
+    const response = await fetch(newURL, {
+        method: 'DELETE',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+    });
+
+    const result = await response.json();
+    document.getElementById('domoMessage').classList.add('hidden');
+
+    if(result.redirect) {
+        window.location = result.redirect;
+    }
+
+    if(result.error) {
+        handleError(result.error);
+    }
+
+    if(handler) {
+        handler(result);
+    }
+
+}
 
 const hideError = () => {
     document.getElementById('domoMessage').classList.add('hidden');
@@ -36,4 +61,5 @@ module.exports = {
     handleError, 
     sendPost,
     hideError,
+    sendDelete,
 }
